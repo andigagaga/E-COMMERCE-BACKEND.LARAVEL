@@ -60,20 +60,20 @@ class TransactionController extends Controller
 
     public function update(Request $request, $id)
     {
-        $transaction = Transaction::findFail($id);
+        $transaction = Transaction::findOrFail($id);
 
         $transaction->update($request->all());
 
-        return ResponseFormatter::success($transaction. 'Transaksi berhasil di perbarui');
+        return ResponseFormatter::success($transaction, 'Transaksi berhasil di perbarui');
     }
 
     public function checkout(Request $request)
     {
         // validasi
         $request->validate([
-            'food_id' => 'required|exists:food,id',
-            'user_id' => 'required|exists:users,id',
-            'quantity' => 'required',
+            'food_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+            'quantity' => 'required|numeric',
             'total' => 'required',
             'status' => 'required',
         ]);
@@ -90,7 +90,7 @@ class TransactionController extends Controller
 
         // konfigurasi midtrans
             Config::$serverKey = config('services.midtrans.serverKey');
-            Config::$isProduction = config('services.midtrans.serverKey');
+            Config::$isProduction = config('services.midtrans.isProduction');
             Config::$isSanitized = config('services.midtrans.isSanitized');
             Config::$is3ds = config('services.midtrans.is3ds');
 
@@ -107,7 +107,6 @@ class TransactionController extends Controller
                 'first_name' => $transaction->user->name,
                 'email' => $transaction->user->email,
             ],
-            'enabled_payments' => ['gopay', 'bank_transfer'],
             'vtweb' => []
         ];
 

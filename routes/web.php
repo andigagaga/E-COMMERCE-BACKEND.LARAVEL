@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\API\MidtransController;
+use App\Http\Controllers\API\TransactionController as APITransactionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +32,9 @@ Route::prefix('dashboard')
     Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('food', FoodController::class);
+
+    Route::get('transaction/{id}/status/{status}', [TransactionController::class, 'changeStatus'])->name('transaction.changeStatus');
+    Route::resource('transaction', TransactionController::class);
 });
 
 // midtrans related

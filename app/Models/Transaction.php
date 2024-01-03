@@ -12,18 +12,18 @@ class Transaction extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'food-id	', 'quantity', 'total', 'status', 'payment_url'
+        'user_id', 'food_id', 'quantity', 'total', 'status', 'payment_url'
     ];
-
+    
     // relasi
     public function food()
-    {
-        return $this->hasOne(Food::class, 'id', 'food-id');
-    }
+{
+    return $this->hasOne(Food::class, 'id', 'food_id');
+}
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'fuser_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function getCreatedAtAttribute($value)

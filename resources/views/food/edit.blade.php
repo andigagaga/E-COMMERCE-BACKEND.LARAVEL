@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {!! __('Food &raquo; Create') !!}
+            Food &raquo; {{ $item->name }} &raquo; Edit
         </h2>
     </x-slot>
 
@@ -26,14 +26,15 @@
                         </div>
                     </div>
                 @endif
-                <form action="{{ route('food.store') }}" class="w-full" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('food.update', $item->id) }}" class="w-full" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Name
                             </label>
-                            <input value="{{ old('name') }}" name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Food Name">
+                            <input value="{{ old('name') ?? $item->name }}" name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Food Name">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
@@ -49,7 +50,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Description
                             </label>
-                            <input value="{{ old('description') }}" name="description" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Food Description">
+                            <input value="{{ old('description') ?? $item->description}}" name="description" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Food Description">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
@@ -57,7 +58,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Inggredients
                             </label>
-                            <input value="{{ old('ingredients') }}" name="ingredients" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Food Inggredients">
+                            <input value="{{ old('ingredients') ?? $item->ingredients}}" name="ingredients" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Food Inggredients">
                             <p class="text-gray-600 text-xs italic">Dipisahkan dengan koma, contoh: Bawang Merah, Paprika, Bawang Bombay, Timun</p>
                         </div>
                     </div>  
@@ -66,7 +67,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Price
                             </label>
-                            <input value="{{ old('price') }}" name="price" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="Food Price">
+                            <input value="{{ old('price') ?? $item->price}}" name="price" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="Food Price">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
@@ -74,7 +75,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Rating
                             </label>
-                            <input value="{{ old('reting') }}" name="reting" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" step="0.01" step="5" placeholder="Food Rating">
+                            <input value="{{ old('reting') ?? $item->reting}}" name="reting" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" step="0.01" step="5" placeholder="Food Rating">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
@@ -82,7 +83,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Types
                             </label>
-                            <input value="{{ old('types') }}" name="types" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Food Types">
+                            <input value="{{ old('types') ?? $item->types}}" name="types" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Food Types">
                             <p class="text-gray-600 text-xs italic">Dipisahkan dengan koma, contoh: Recommended, Popular, New_food</p>
                         </div>
                     </div>
